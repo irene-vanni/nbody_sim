@@ -1,29 +1,28 @@
-# N-Body Simulator in C++
+# 🌌 N-Body Simulator in C++
 
-Simple 2D N-body simulation written in modern C++.
+A professional-grade 3D gravitational N-body simulation engine written in modern C++.
 
-## 🚀 Project Overview
+## 🚀 Overview
 
-This project implements a basic particle simulation where objects move in 2D space.
-The goal is to build a modular and extensible simulation engine, starting from simple motion and evolving toward full gravitational interaction.
+This project simulates the gravitational interaction between multiple celestial bodies. It serves as a practical implementation of **Object-Oriented Programming (OOP)** and **Numerical Physics** in C++.
 
-## 🧱 Current Features
+## 🛠️ Key Technical Features
 
-- Particle class with position, velocity, and mass
-- Time integration using simple Euler method
-- Multiple particles handled via `std::vector`
-- Console-based output
+- **3D Physics**: Full support for X, Y, and Z coordinates[cite: 6].
+- **Leapfrog Integration**: Uses a symplectic integrator (Leapfrog) to ensure better energy conservation compared to simple Euler methods[cite: 1].
+- **Numerical Stability**: Implements a "Softening" parameter to prevent singularities during close particle encounters[cite: 1].
+- **Modern C++**: Utilizes `std::vector` for memory management and `<random>` for scientific-grade random data generation[cite: 2].
 
-## 🛠️ Technologies
+## 🧱 Project Structure
 
-- C++17
-- CMake (build system)
+- `include/`: Header files (.hpp) defining the class interfaces.
+- `src/`: Implementation files (.cpp) with the simulation logic.
+- `CMakeLists.txt`: Build configuration for cross-platform support[cite: 5].
 
-## ▶️ How to Build and Run
-
+## ▶️ Build and Run
 ```bash
-mkdir build
-cd build
+mkdir build && cd build
 cmake ..
 make
 ./nbody
+```

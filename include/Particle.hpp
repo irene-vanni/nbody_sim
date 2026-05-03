@@ -3,21 +3,26 @@
 
 #include <iostream>
 
-// 2D vector struct
-struct Vector2D {
-    double x, y;
+// 3D vector struct
+struct Vector3D {
+    double x, y, z;
 };
+
 
 class Particle {
 public:
-    Vector2D position;
-    Vector2D velocity;
+    Vector3D position;
+    Vector3D velocity;
+    Vector3D acceleration;
     double mass;
 
-    Particle(double x, double y, double vx, double vy, double m);
+    Particle(double x, double y, double z, double vx, double vy, double vz, double m);
 
-    void update(double dt);
+    void updatePosition(double dt);
+    void updateVelocity(double dt);
     void print() const;
+    void resetAcceleration();
+    void addForce(const Particle& other);
 };
 
 #endif
