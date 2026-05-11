@@ -26,3 +26,12 @@ cmake ..
 make
 ./nbody
 ```
+
+## 📊 Visualization
+
+The simulation exports data to `simulation_data.csv`. You can visualize the results using the provided Python script:
+
+1. Run the simulation: `./nbody`
+2. Run the visualizer: `python3 plot_results.py`
+
+This will generate a 3D plot of the particle trajectories.

@@ -1,13 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <fstream>
 #include "Particle.hpp"
 
 
 int main() {
 
     int n_particles;// Number of particles
-    bool random_particles = true; // Whether to initialize particles with random positions and velocities
+    bool random_particles = false; // Whether to initialize particles with random positions and velocities
     
     std::cout << "--- Starting N_Body Simulation (3D Leapfrog) ---" << std::endl;
     std::vector<Particle> particles;
@@ -32,9 +33,14 @@ int main() {
         particles.emplace_back(1.0, 1.0, 0.0, -0.1, 0.0, 0.0, 1.0);
     }
 
-    double dt = 0.01; // Reduced time step for better stability in Leapfrog integration
+    // Opening a CSV file to save the simulation data
+    std::ofstream outFile("simulation_data.csv");
+    outFile << "step,id,x,y,z\n"; // Header 
 
-    for (int step = 0; step < 100; ++step) {
+    double dt = 0.01; // Reduced time step for better stability in Leapfrog integration
+    int n_steps = 500; // Total number of simulation steps
+
+    for (int step = 0; step < n_steps; ++step) {
         // 1. Position Update (Leapfrog Step 1)
         for (auto& p : particles) p.updatePosition(dt);
 
@@ -46,13 +52,20 @@ int main() {
             }
         }
 
-        // 3. Velocity Update and Print (Leapfrog Step 2)
-        if (step % 10 == 0) std::cout << "Step " << step << ":" << std::endl;
-        for (auto& p : particles) {
-            p.updateVelocity(dt);
-            if (step % 10 == 0) p.print();
+        // 3. Velocity Update and CSV Saving (Leapfrog Step 2)
+        for (size_t i = 0; i < particles.size(); ++i) {
+            particles[i].updateVelocity(dt);
+            
+            // Saving the current state of each particle to the CSV file
+            outFile << step << "," << i << "," 
+                    << particles[i].position.x << "," 
+                    << particles[i].position.y << "," 
+                    << particles[i].position.z << "\n";
         }
     }
+
+    outFile.close();
+    std::cout << "Simulation completed. Data saved to simulation_data.csv" << std::endl;
 
     return 0;
 }
